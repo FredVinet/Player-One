@@ -12,7 +12,6 @@
 
 if(isset($_POST["submit"])){
 
-    // require_once("adduser.php");
 
     $Userlogin = $_POST["User"];
     $passwordlogin = $_POST["password"];

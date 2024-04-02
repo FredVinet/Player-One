@@ -1,3 +1,176 @@
+<?php
+    session_start();
+    
+    //------------------------------------ 
+    //  _____ _               _    
+    // /  __ \ |             | |   
+    // | /  \/ |__   ___  ___| | __
+    // | |   | '_ \ / _ \/ __| |/ /
+    // | \__/\ | | |  __/ (__|   < 
+    //  \____/_| |_|\___|\___|_|\_\
+    //------------------------------------  
+
+if(isset($_POST["submit"])){
+
+
+    $Userlogin = $_POST["Username"];
+    $passwordlogin = $_POST["Password"];
+    
+
+    $errors = array();
+
+    if(empty($Userlogin) OR empty($passwordlogin)){
+        array_push($errors, "All fields are required");
+    }
+    if(isset($_POST['Username']) && isset($_POST['Password'])){
+
+        function validate($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+    }
+    $Userlogin = validate($_POST['Username']);
+    $passwordlogin = validate($_POST['Password']);
+
+    //------------------------------------
+    // ____________   _____ _               _    
+    // |  _  \ ___ \ /  __ \ |             | |   
+    // | | | | |_/ / | /  \/ |__   ___  ___| | __
+    // | | | | ___ \ | |   | '_ \ / _ \/ __| |/ /
+    // | |/ /| |_/ / | \__/\ | | |  __/ (__|   < 
+    // |___/ \____/   \____/_| |_|\___|\___|_|\_\
+    //------------------------------------
+    
+    if(count($errors)===0){
+
+        require_once "./PHP/Login/DB_Conn.php";
+
+        $sql = "SELECT * FROM t_joueur
+                WHERE J_Username = '$Userlogin' AND J_Pwd='$passwordlogin'";
+
+        $result = mysqli_query($conn, $sql);
+        if(mysqli_num_rows($result) === 1){
+
+            $row = mysqli_fetch_assoc($result); 
+            if($row['J_Username']===$Userlogin && $row['J_Pwd'] === $passwordlogin){
+
+                $_SESSION['Image'] = $row['J_Image'];
+                $_SESSION['Username'] = $row['J_Username'];
+                $_SESSION['Id'] = $row['J_Id'];
+                $_SESSION['Loggedin'] = $_SESSION['Username'];
+                header("Location: ./index.php");
+
+                exit();
+            } 
+        }else {
+            array_push($errors, "UserName or Password doesn't exist.");
+        }
+    }
+    if(count($errors)>0){
+        foreach($errors as $error){
+            echo"<div class='alert alert-danger'>$error</div>";
+        }
+    }
+}
+
+?>
+
+
+
+
+
+
+<?php
+
+//------------------------------------
+//  _____ _               _    
+// /  __ \ |             | |   
+// | /  \/ |__   ___  ___| | __
+// | |   | '_ \ / _ \/ __| |/ /
+// | \__/\ | | |  __/ (__|   < 
+//  \____/_| |_|\___|\___|_|\_\
+//------------------------------------  
+                        
+if(isset($_POST["submit-register"])){
+    $emailregister = $_POST["Email"];
+    $Userregister = $_POST["UserRegister"];
+    $passwordregister = $_POST["PwdRegister"];
+    $passwordrepeatregister = $_POST["PwdCheckRegister"];
+
+    $errors = array();
+
+    if(empty($emailregister) OR empty($Userregister) OR empty($passwordregister) OR empty($passwordrepeatregister)){
+        array_push($errors, "All fields are required" );
+    }
+    if(!filter_var($emailregister, FILTER_VALIDATE_EMAIL)){
+        array_push($errors, "Email is not valid");
+    }
+    if(strlen($passwordregister)<8){
+        array_push($errors, "Password must be at least 8 characters long"); 
+    }
+    if($passwordregister != $passwordrepeatregister){
+        array_push($errors, "Password does not match"); 
+    }
+    if(count($errors)>0){
+        foreach($errors as $error){
+            echo"<div class='alert alert-danger'>$error</div>";
+        }
+    }else{
+        require_once "./PHP/Login/DB_Conn.php";
+        $passwordHash = password_hash($passwordregister, PASSWORD_DEFAULT);
+        // Fonction pour génèrer un random ID 
+        function generateRandomId() {
+            return rand(1, 999999);
+        }
+
+        // Génère un random ID
+        $randomId = generateRandomId();
+
+        // Check si l'ID existe déjà dans la base de données
+        $sqlCheck = "SELECT J_Id FROM t_joueur WHERE J_id = '$randomId'";
+        $result = $conn->query($sqlCheck);
+
+        if ($result->num_rows > 0) {
+            // Si l'Id existe déjà, génère une nouvelle
+            $randomId = generateRandomId();
+        }
+
+
+        function sanitizeEmail($emailregister) {
+            return filter_var($emailregister, FILTER_SANITIZE_EMAIL);
+        }
+        // Filtre et valide l'email
+        $sanitizedEmail = sanitizeEmail($emailregister);
+        
+        // Check si l'email existe déjà dans la base de données
+        $sqlCheck = "SELECT J_Email FROM t_joueur WHERE J_Email = '$sanitizedEmail'";
+        $result = $conn->query($sqlCheck);
+        
+        if ($result->num_rows > 0) {
+            array_push($errors, "Email already exist." );
+        } else {
+            $sql = "INSERT INTO t_joueur (J_Id, J_Email, J_Pwd, J_Username) VALUES (?, ?, ?, ?)";
+            $stmt = mysqli_stmt_init($conn);
+            $preparestmt = mysqli_stmt_prepare($stmt, $sql);
+            if($preparestmt){
+                mysqli_stmt_bind_param($stmt, "ssss", $randomId, $emailregister, $passwordregister, $Userregister);
+                mysqli_stmt_execute($stmt);
+            }else{
+                array_push($errors, "Something went wrong"); 
+            }
+        }
+        // Ferme la base de données
+        $conn->close();
+    }
+}
+    
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,9 +216,13 @@
                     <a class="btn btn-dark border-warning-subtle px-3" href="https://github.com/FredVinet/VitrineCasseBrique" role="button">
                         <i class="fab fa-github"></i>
                     </a>
-                    <button type="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        Login
-                    </button>
+                    <?php 
+                       if(isset($_SESSION['Loggedin'])){
+                           echo '<a href="./logout.php"><button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">'. $_SESSION['Username'] .'</button></a>';
+                       } else {
+                           
+                       }
+                    ?>
                     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -65,7 +242,7 @@
                                     <!-- Pills content -->
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                                            <form>
+                                            <form action="index.php" method="POST">
                                                 <div class="text-center mb-3">
                                                     <p>Sign in with :</p>
                                                     <button type="button" class="btn btn-link btn-floating mx-1">
@@ -89,13 +266,13 @@
 
                                                 <!-- Email input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="email" id="loginName" class="form-control" />
+                                                    <input type="text" id="loginName" class="form-control" name="Username" />
                                                     <label class="form-label" for="loginName">Email or username</label>
                                                 </div>
 
                                                 <!-- Password input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="password" id="loginPassword" class="form-control" />
+                                                    <input type="password" id="loginPassword" class="form-control" name="Password"/>
                                                     <label class="form-label" for="loginPassword">Password</label>
                                                 </div>
 
@@ -117,7 +294,7 @@
 
                                                 <!-- Submit button -->
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                                                    <button type="submit" name="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
                                                 </div>
                                                 <!-- Register buttons -->
                                                 <div class="text-center">
@@ -126,7 +303,7 @@
                                             </form>
                                         </div>
                                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                                            <form>
+                                            <form action="index.php" method="POST">
                                                 <div class="text-center mb-3">
                                                     <p>Sign up with :</p>
                                                     <button type="button" class="btn btn-link btn-floating mx-1">
@@ -148,33 +325,27 @@
 
                                                 <p class="text-center">or :</p>
 
-                                                <!-- Name input -->
+                                                <!-- Email input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="text" id="registerName" class="form-control" />
-                                                    <label class="form-label" for="registerName">Name</label>
+                                                    <input type="email" id="registerEmail" class="form-control" name="Email"/>
+                                                    <label class="form-label" for="registerEmail">Email</label>
                                                 </div>
 
                                                 <!-- Username input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="text" id="registerUsername" class="form-control" />
+                                                    <input type="text" id="registerUsername" class="form-control" name="UserRegister"/>
                                                     <label class="form-label" for="registerUsername">Username</label>
-                                                </div>
-
-                                                <!-- Email input -->
-                                                <div class="form-outline mb-4">
-                                                    <input type="email" id="registerEmail" class="form-control" />
-                                                    <label class="form-label" for="registerEmail">Email</label>
                                                 </div>
 
                                                 <!-- Password input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="password" id="registerPassword" class="form-control" />
+                                                    <input type="password" id="registerPassword" class="form-control" name="PwdRegister"/>
                                                     <label class="form-label" for="registerPassword">Password</label>
                                                 </div>
 
                                                 <!-- Repeat Password input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="password" id="registerRepeatPassword" class="form-control" />
+                                                    <input type="password" id="registerRepeatPassword" class="form-control" name="PwdCheckRegister"/>
                                                     <label class="form-label" for="registerRepeatPassword">Repeat password</label>
                                                 </div>
 
@@ -189,7 +360,7 @@
 
                                                 <!-- Submit button -->
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign up</button>
+                                                    <button type="submit" name="submit-register"  class="btn btn-primary btn-block mb-3">Sign up</button>
                                                 </div>
                                             </form>
                                         </div>

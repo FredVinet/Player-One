@@ -1,15 +1,5 @@
 <?php
-    session_start();
-    
-    //------------------------------------ 
-    //  _____ _               _    
-    // /  __ \ |             | |   
-    // | /  \/ |__   ___  ___| | __
-    // | |   | '_ \ / _ \/ __| |/ /
-    // | \__/\ | | |  __/ (__|   < 
-    //  \____/_| |_|\___|\___|_|\_\
-    //------------------------------------  
-
+session_start();
 if(isset($_POST["submit"])){
 
 
@@ -66,7 +56,6 @@ if(isset($_POST["submit"])){
                 $_SESSION['Username'] = $row['J_Username'];
                 $_SESSION['Id'] = $row['J_Id'];
                 $_SESSION['UserType'] = $row['J_Type'];
-                $_SESSION['Loggedin'] = $_SESSION['Username'];
 
                 // Vérifiez si le type d'utilisateur n'est ni 'Admin' ni 'User'
                 if($_SESSION['UserType'] != 'Admin' && $_SESSION['UserType'] != 'User') {
@@ -75,8 +64,10 @@ if(isset($_POST["submit"])){
                 }else{
                     if($_SESSION['UserType'] == 'Admin'){
                         $_SESSION["Admin"] = true;
+                        $_SESSION['Loggedin'] = true;
                     }else{
                         $_SESSION["User"] = true;
+                        $_SESSION['Loggedin'] = true;
                     }
                 }
                 

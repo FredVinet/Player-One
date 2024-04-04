@@ -37,9 +37,9 @@ if (isset ($_SESSION["Loggedin"])) {
                 <i class="fa-solid fa-tent"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="./index.php">Home</a></li>
-                    <li><a class="dropdown-item" href="#">Scoreboard</a></li>
-                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                    <li><a class="dropdown-item" href="./index.php"><i class="fa-solid fa-house me-2"></i>Home</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-comment me-2"></i>Contact Us</a></li>
                 </ul>
             </div>
 
@@ -56,15 +56,26 @@ if (isset ($_SESSION["Loggedin"])) {
                     <i class="fab fa-github"></i>
                 </a>
                 <?php 
-                   if(isset($_SESSION['Loggedin'])){
-                       echo '<div class="dropdown ">
-                                <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $userpseudo .'</button>
+                   if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
+                    
+                       echo '<div class="dropdown">
+                                <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="./MonCompte.php">Account</a></li>
-                                    <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#">Disconnect</a></li>
+                                    <li><a class="dropdown-item" href="./Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                                    <li><a class="dropdown-item" href="./Account.php"><i class="fa-regular fa-user me-2"></i>Account</a></li>
+                                    <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                                 </ul>
                             </div>';
-                   } else {
+                   } elseif(isset($_SESSION["User"]) && $_SESSION["User"] == true){
+                    echo '<div class="dropdown ">
+                                <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="./Account.php"><i class="fa-regular fa-user me-2"></i>Account</a></li>
+                                    <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
+                                </ul>
+                            </div>';
+                   }
+                   else {
                         echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
                    }
                 ?>

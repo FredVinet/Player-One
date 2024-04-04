@@ -28,11 +28,11 @@ $groupes = array_chunk($resultats, 3);
                                 <div class="col-md-3 mb-5 d-flex align-items-stretch">
                                     <div class="card bg-dark border-warning-subtle">
                                         <img src="<?php echo $carte['CB_Image']; ?>" class="mt-4 ms-3 me-3 rounded-circle d-block mx-auto" alt="..."> <!-- Ajout de 'mx-auto' pour centrer l'image -->
-                                        <div class="card-body text-center"> <!-- Ajout de 'text-center' -->
-                                            <h5 class="card-title text-warning"><?php echo $carte['CB_Nom']; ?></h5>
+                                        <div class="card-body "> <!-- Ajout de 'text-center' -->
+                                            <h5 class="card-title text-warning text-center"><?php echo $carte['CB_Nom']; ?></h5>
                                             <p class="card-text text-light">Créateur/rice : <?php echo $carte['CB_Createur']; ?></p>
-                                            <p class="card-text text-light"><?php echo $carte['CB_Type']; ?></p>
-                                            <a href="#" class="btn btn-secondary px-3 border-warning-subtle">Launch Game</a>
+                                            <p class="card-text text-info"><?php echo $carte['CB_Type']; ?></p>
+                                            <a href="#"><button class="btn btn-secondary px-3 border-warning-subtle">Launch Game</button></a>
                                         </div>
                                     </div>
                                 </div>

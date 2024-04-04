@@ -250,9 +250,7 @@ require_once "./PHP/Login/adduser.php";
     <main class="m-0 border-0 bd-example border-0 mt-5">
 
         <?php 
-            if (isset($_SESSION['Loggedin']) && $_SESSION['Loggedin'] = true OR !isset($_SESSION['Loggedin']) && $_SESSION['Loggedin'] != true) {
-                require_once "./CardShower.php";
-            } 
+            require_once "./CardShower.php";
         ?> 
         
     </main>

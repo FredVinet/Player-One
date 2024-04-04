@@ -93,5 +93,3 @@ if(isset($_POST["submit-register"])){
         exit();
     }
 }
-    
-?>

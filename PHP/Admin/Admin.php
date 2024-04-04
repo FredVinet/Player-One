@@ -229,9 +229,5 @@ if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
     ?>  
 </main>
 
-
-
-
-
 </body>
 </html>

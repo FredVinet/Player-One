@@ -6,7 +6,7 @@ if (isset ($_SESSION["Loggedin"])) {
     $UserImage = $_SESSION['Image'];
     $UserId = $_SESSION['Id'];
 }  else {
-    header("Location: ./index.php");
+    header("Location: ../../index.php");
 }
 ?>
 

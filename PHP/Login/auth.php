@@ -67,6 +67,19 @@ if(isset($_POST["submit"])){
                 $_SESSION['Id'] = $row['J_Id'];
                 $_SESSION['UserType'] = $row['J_Type'];
                 $_SESSION['Loggedin'] = $_SESSION['Username'];
+
+                // Vérifiez si le type d'utilisateur n'est ni 'Admin' ni 'User'
+                if($_SESSION['UserType'] != 'Admin' && $_SESSION['UserType'] != 'User') {
+                    // Supprimez la variable de session 'UserType' car elle ne correspond à aucun rôle attendu
+                    unset($_SESSION['UserType']);
+                }else{
+                    if($_SESSION['UserType'] == 'Admin'){
+                        $_SESSION["Admin"] = true;
+                    }else{
+                        $_SESSION["User"] = true;
+                    }
+                }
+                
                 header("Location: ./index.php");
 
                 exit();

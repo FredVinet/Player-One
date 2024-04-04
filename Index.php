@@ -1,15 +1,7 @@
 <?php
-
 require_once "./PHP/Login/auth.php";
 require_once "./PHP/Login/adduser.php";
 ?>
-
-
-
-
-
-
-
 
 
 
@@ -18,7 +10,7 @@ require_once "./PHP/Login/adduser.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>BrickBreaker</title>
+    <title>Player One</title>
     <link rel="stylesheet" href="./Css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -41,8 +33,8 @@ require_once "./PHP/Login/adduser.php";
                 <i class="fa-solid fa-tent"></i>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Scoreboard</a></li>
-                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-comment me-2"></i>Contact Us</a></li>
                 </ul>
             </div>
 
@@ -59,22 +51,22 @@ require_once "./PHP/Login/adduser.php";
                         <i class="fab fa-github"></i>
                     </a>
                     <?php 
-                       if($_SESSION["UserType"] == "Admin"){
-                        $_SESSION["Admin"] = true;
+                       if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
+                        
                            echo '<div class="dropdown">
                                     <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="./MonCompte.php">Admin</a></li>
-                                        <li><a class="dropdown-item" href="./MonCompte.php">Account</a></li>
-                                        <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#">Disconnect</a></li>
+                                        <li><a class="dropdown-item" href="./Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                                        <li><a class="dropdown-item" href="./Account.php"><i class="fa-regular fa-user me-2"></i>Account</a></li>
+                                        <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                                     </ul>
                                 </div>';
-                       } elseif($_SESSION["UserType"] == "User"){
+                       } elseif(isset($_SESSION["User"]) && $_SESSION["User"] == true){
                         echo '<div class="dropdown ">
                                     <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="./MonCompte.php">Account</a></li>
-                                        <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#">Disconnect</a></li>
+                                        <li><a class="dropdown-item" href="./Account.php"><i class="fa-regular fa-user me-2"></i>Account</a></li>
+                                        <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                                     </ul>
                                 </div>';
                        }

@@ -12,10 +12,9 @@
 
 if(isset($_POST["submit"])){
 
-    // require_once("adduser.php");
 
-    $Userlogin = $_POST["User"];
-    $passwordlogin = $_POST["password"];
+    $Userlogin = $_POST["Username"];
+    $passwordlogin = $_POST["Password"];
     
 
     $errors = array();
@@ -23,7 +22,7 @@ if(isset($_POST["submit"])){
     if(empty($Userlogin) OR empty($passwordlogin)){
         array_push($errors, "All fields are required");
     }
-    if(isset($_POST['User']) && isset($_POST['password'])){
+    if(isset($_POST['Username']) && isset($_POST['Password'])){
 
         function validate($data){
             $data = trim($data);
@@ -32,8 +31,8 @@ if(isset($_POST["submit"])){
             return $data;
         }
     }
-    $Userlogin = validate($_POST['User']);
-    $passwordlogin = validate($_POST['password']);
+    $Userlogin = validate($_POST['Username']);
+    $passwordlogin = validate($_POST['Password']);
 
     //------------------------------------
     // ____________   _____ _               _    
@@ -43,25 +42,32 @@ if(isset($_POST["submit"])){
     // | |/ /| |_/ / | \__/\ | | |  __/ (__|   < 
     // |___/ \____/   \____/_| |_|\___|\___|_|\_\
     //------------------------------------
-    
-    if(count($errors)===0){
-
-        require_once "DB_Conn.php";
+    if(count($errors) > 0){
+        
+        $_SESSION['errors'] = $errors;
+        foreach($errors as $error){
+            echo"<div class='alert alert-danger'>$error</div>";
+        }
+        header("Location: index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        exit();
+    }else{
+        require_once "./PHP/Login/DB_Conn.php";
 
         $sql = "SELECT * FROM t_joueur
-                WHERE J_User = '$Userlogin' AND J_MDP='$passwordlogin'";
+                WHERE J_Username = '$Userlogin' AND J_Pwd='$passwordlogin'";
 
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result) === 1){
 
             $row = mysqli_fetch_assoc($result); 
-            if($row['J_User']===$Userlogin && $row['J_MDP'] === $passwordlogin){
+            if($row['J_Username']===$Userlogin && $row['J_Pwd'] === $passwordlogin){
 
-                $_SESSION['Photo'] = $row['J_photo'];
-                $_SESSION['User'] = $row['J_User'];
+                $_SESSION['Image'] = $row['J_Image'];
+                $_SESSION['Username'] = $row['J_Username'];
                 $_SESSION['Id'] = $row['J_Id'];
-                $_SESSION['Loggedin'] = $_SESSION['User'];
-                header("Location: ./wow-armory.php");
+                $_SESSION['UserType'] = $row['J_Type'];
+                $_SESSION['Loggedin'] = $_SESSION['Username'];
+                header("Location: ./index.php");
 
                 exit();
             } 

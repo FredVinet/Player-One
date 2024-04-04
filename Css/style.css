@@ -2,7 +2,13 @@ body{
     background-image: url(../Assets/BackgroundHub.png);
 }
 
-.size-logo {
-    width: 100px;
-    height: 100px;
-  }
+
+.background-modal{
+    background-image: url(../Assets/CardLogin3.png);
+    background-position: center;
+    
+}
+
+.radius-modal{
+    border-radius: 30px  ;
+}

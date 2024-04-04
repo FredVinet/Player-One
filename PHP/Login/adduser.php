@@ -10,12 +10,12 @@
 //------------------------------------  
                         
 if(isset($_POST["submit-register"])){
-    $emailregister = $_POST["email-register"];
-    $Userregister = $_POST["User-register"];
-    $passwordregister = $_POST["password-register"];
-    $passwordrepeatregister = $_POST["password-check-register"];
+    $emailregister = $_POST["Email"];
+    $Userregister = $_POST["UserRegister"];
+    $passwordregister = $_POST["PwdRegister"];
+    $passwordrepeatregister = $_POST["PwdCheckRegister"];
 
-    $errors = array();
+    $errors = array();      
 
     if(empty($emailregister) OR empty($Userregister) OR empty($passwordregister) OR empty($passwordrepeatregister)){
         array_push($errors, "All fields are required" );
@@ -29,12 +29,16 @@ if(isset($_POST["submit-register"])){
     if($passwordregister != $passwordrepeatregister){
         array_push($errors, "Password does not match"); 
     }
-    if(count($errors)>0){
+    if(count($errors) > 0){
+        
+        $_SESSION['errors'] = $errors;
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
+        header("Location: index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        exit();
     }else{
-        require_once "DB_Conn.php";
+        require_once "./PHP/Login/DB_Conn.php";
         $passwordHash = password_hash($passwordregister, PASSWORD_DEFAULT);
         // Fonction pour génèrer un random ID 
         function generateRandomId() {
@@ -54,31 +58,50 @@ if(isset($_POST["submit-register"])){
         }
 
 
-        function sanitizeEmail($emailregister) {
-            return filter_var($emailregister, FILTER_SANITIZE_EMAIL);
-        }
-        // Filtre et valide l'email
-        $sanitizedEmail = sanitizeEmail($emailregister);
-        
-        // Check si l'email existe déjà dans la base de données
-        $sqlCheck = "SELECT J_ADR FROM t_joueur WHERE J_ADR = '$sanitizedEmail'";
-        $result = $conn->query($sqlCheck);
-        
-        if ($result->num_rows > 0) {
-            array_push($errors, "Email already exist." );
-        } else {
-            $sql = "INSERT INTO t_joueur (J_Id, J_ADR, J_MDP, J_User) VALUES (?, ?, ?, ?)";
-            $stmt = mysqli_stmt_init($conn);
-            $preparestmt = mysqli_stmt_prepare($stmt, $sql);
-            if($preparestmt){
-                mysqli_stmt_bind_param($stmt, "ssss", $randomId, $emailregister, $passwordregister, $Userregister);
-                mysqli_stmt_execute($stmt);
-            }else{
-                array_push($errors, "Something went wrong"); 
+        function sanitizeAndValidateEmail($email) {
+            $sanitizedEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
+            if (!filter_var($sanitizedEmail, FILTER_VALIDATE_EMAIL)) {
+                return false; // L'email n'est pas valide
             }
+            return $sanitizedEmail; // L'email est valide
         }
-        // Ferme la base de données
+        $sanitizedEmail = sanitizeAndValidateEmail($emailregister);
+        if (!$sanitizedEmail) {
+            array_push($errors, "Email is not valid");
+        } else {
+            // Préparation de la requête pour vérifier si l'email existe déjà
+            $sqlCheck = "SELECT J_Email FROM t_joueur WHERE J_Email = ?";
+            $stmt = $conn->prepare($sqlCheck);
+            $stmt->bind_param("s", $sanitizedEmail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        
+            if ($result->num_rows > 0) {
+                array_push($errors, "Email already exists.");
+            } else {
+                // L'email n'existe pas dans la base de données, procéder à l'insertion
+                
+                $sql = "INSERT INTO t_joueur (J_Id, J_Email, J_Pwd, J_Username) VALUES (?, ?, ?, ?)";
+                $stmt = mysqli_stmt_init($conn);
+                $preparestmt = mysqli_stmt_prepare($stmt, $sql);
+                if($preparestmt){
+                    mysqli_stmt_bind_param($stmt, "ssss", $randomId, $emailregister, $passwordregister, $Userregister);
+                    mysqli_stmt_execute($stmt);
+                }else{
+                    array_push($errors, "Something went wrong"); 
+                }
+                }
+            $stmt->close();
+        }
         $conn->close();
+    }
+    // Afficher les erreurs ou rediriger l'utilisateur
+    if (count($errors) > 0) {
+        $_SESSION['errors'] = $errors;
+        // Assurez-vous d'avoir la logique côté client pour traiter ces erreurs
+        header("Location: index.php"); // Ou une autre logique de gestion des erreurs
+        exit();
     }
 }
     
+?>

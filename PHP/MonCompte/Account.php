@@ -58,7 +58,14 @@ if (isset ($_SESSION["Loggedin"])) {
                 </a>
                 <?php 
                    if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
-                        header("Location: ../../index.php");
+                    echo '<div class="dropdown">
+                            <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="./PHP/Admin/Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                                <li><a class="dropdown-item" href="./PHP/MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
+                                <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
+                            </ul>
+                        </div>';
                    } elseif(isset($_SESSION["User"]) && $_SESSION["User"] == true){
                     echo '<div class="dropdown ">
                                 <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>

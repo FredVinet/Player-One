@@ -38,19 +38,21 @@ if(isset($_POST["submit"])){
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
-        header("Location: index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        header("Location: ./index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
     }else{
         require_once "./PHP/DBConnect/DB_Conn.php";
 
-        $sql = "SELECT * FROM t_joueur
-                WHERE J_Username = '$Userlogin' AND J_Pwd='$passwordlogin'";
+        $sql = "SELECT * FROM t_joueur WHERE J_Username = ? AND J_Pwd = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $Userlogin, $passwordlogin);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if($result->num_rows === 1){
 
-        $result = mysqli_query($conn, $sql);
-        if(mysqli_num_rows($result) === 1){
+            $row = $result->fetch_assoc();
 
-            $row = mysqli_fetch_assoc($result); 
-            if($row['J_Username']===$Userlogin && $row['J_Pwd'] === $passwordlogin){
+            if($row['J_Username'] === $Userlogin && $row['J_Pwd'] === $passwordlogin){
 
                 $_SESSION['Image'] = $row['J_Image'];
                 $_SESSION['Username'] = $row['J_Username'];
@@ -58,29 +60,29 @@ if(isset($_POST["submit"])){
                 $_SESSION['UserType'] = $row['J_Type'];
                 $_SESSION['Loggedin'] = $_SESSION['Username'];
 
-                // Vérifiez si le type d'utilisateur n'est ni 'Admin' ni 'User'
+                // Vérifie si le type d'utilisateur n'est ni 'Admin' ni 'User'
                 if($_SESSION['UserType'] != 'Admin' && $_SESSION['UserType'] != 'User') {
-                    // Supprimez la variable de session 'UserType' car elle ne correspond à aucun rôle attendu
+                    // Supprime la variable de session 'UserType' car elle correspond à aucun rôle attendu
                     unset($_SESSION['UserType']);
-                }else{
+                } else {
+
                     if($_SESSION['UserType'] == 'Admin'){
                         $_SESSION["Admin"] = true;
-                    }else{
+                    } else {
                         $_SESSION["User"] = true;
                     }
+                    
                 }
-                
                 header("Location: ./index.php");
-
                 exit();
             } 
-        }else {
+        } else {
             array_push($errors, "UserName or Password doesn't exist.");
         }
-    }
-    if(count($errors)>0){
-        foreach($errors as $error){
-            echo"<div class='alert alert-danger'>$error</div>";
         }
+        if(count($errors)>0){
+            foreach($errors as $error){
+                echo"<div class='alert alert-danger'>$error</div>";
+            }
     }
 }

@@ -126,6 +126,7 @@ require_once "./createUser.php";
                         <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $_SESSION['Username'] ?></button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="./Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                            <li><a class="dropdown-item" href="../MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
                             <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                         </ul>
                     </div>

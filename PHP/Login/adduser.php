@@ -60,16 +60,25 @@ if(isset($_POST["submit-register"])){
             array_push($errors, "Email is not valid");
         } else {
             // Préparation de la requête pour vérifier si l'email existe déjà
-            $sqlCheck = "SELECT J_Email FROM t_joueur WHERE J_Email = ?";
-            $stmt = $conn->prepare($sqlCheck);
+            $sqlCheckMail = "SELECT J_Email FROM t_joueur WHERE J_Email = ?";
+            $stmt = $conn->prepare($sqlCheckMail);
             $stmt->bind_param("s", $sanitizedEmail);
             $stmt->execute();
-            $result = $stmt->get_result();
+            $resultmail = $stmt->get_result();
+
+            $sqlCheckUser = "SELECT J_Username FROM t_joueur WHERE J_Username = ?";
+            $stmt = $conn->prepare($sqlCheckUser);
+            $stmt->bind_param("s", $Userregister);
+            $stmt->execute();
+            $resultuser = $stmt->get_result();
+            
         
-            if ($result->num_rows > 0) {
+            if ($resultmail->num_rows > 0) {
                 array_push($errors, "Email already exists.");
-            } else {
-                // L'email n'existe pas dans la base de données, procéder à l'insertion
+            } elseif($resultuser->num_rows > 0) {
+                array_push($errors, "Username already exists.");
+            }else {
+                // L'email ou le Username n'existe pas dans la base de données, procéder à l'insertion
                 
                 $sql = "INSERT INTO t_joueur (J_Id, J_Email, J_Pwd, J_Username) VALUES (?, ?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);

@@ -6,7 +6,7 @@ if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
     $passwordModify = $_POST["PwdRegisterChange"];
     $passwordrepeatModify = $_POST["PwdCheckRegisterChange"];
     $typeModify = $_POST["TypeUserChange"];
-    $id = $_GET['id'];
+    $id = $_GET['idchange'];
     if (!is_numeric($id)) {
         die("Invalid ID");
     }
@@ -110,9 +110,9 @@ if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
             } else {
                 require_once "../DBConnect/DB_Conn.php";
                 // Préparez la requête SQL UPDATE pour mettre à jour les enregistrements dans la base de données
-                $sqlUpdate = "UPDATE t_joueur SET J_id = ?, J_Email=?, J_Username=?, J_Pwd=?, J_Type=? J_Image=? WHERE J_Id=?";
+                $sqlUpdate = "UPDATE t_joueur SET J_id = ?, J_Email=?, J_Username=?, J_Pwd=?, J_Type=?, J_Image=? WHERE J_Id=?";
                 $stmt = $conn->prepare($sqlUpdate);
-                $stmt->bind_param("issssss",$idModify, $emailModify, $userModify, $passwordModify, $typeModify, $userImage ,$id);
+                $stmt->bind_param("sssssss",$idModify, $emailModify, $userModify, $passwordModify, $typeModify, $userImage ,$id);
         
                 // Exécutez la requête SQL UPDATE
                 if($stmt->execute()){

@@ -71,7 +71,7 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
                 <!-- Pills content -->
                 <div class="tab-content ">
                     <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                        <form action="./admin.php" method="POST">
+                        <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>" method="POST">
 
                             <!-- Id input -->
                             <div class="form-outline mb-4 ">
@@ -111,7 +111,7 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
 
                             <!-- Submit button -->
                             <div class="d-flex justify-content-center">
-                                <a id="deleteButton" href="./Modify.php?id=<?php echo $resultats['J_Id']?>" class="btn btn-primary btn-block mb-3">Update Change</a>
+                                <button type="submit" name="submit-create"  class="btn btn-primary btn-block mb-3">Update Change</button>
                             </div>
                         </form>
                     </div>

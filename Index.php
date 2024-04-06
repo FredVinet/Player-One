@@ -153,6 +153,7 @@ require_once "./PHP/Login/adduser.php";
                                                 </div>
                                             </form>
                                         </div>
+                                        
                                         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                                             <form action="index.php" method="POST">
                                                 <div class="text-center mb-3 text-light">

@@ -1,8 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
-    header("Location: ./index.php");
+    header("Location: ../../index.php");
 }
+require_once "./createUser.php";
 ?>
 
 <!DOCTYPE html>
@@ -50,162 +51,64 @@ if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
 
                 <!-- Bouton Login à droite -->
                 <div class="d-flex align-items-center gap-3 me-5">
-                    <a class="btn btn-dark border-warning-subtle px-3" href="https://github.com/FredVinet/Player-One" target="blank" role="button">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <?php 
-                    if(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
-                        
-                        echo '<div class="dropdown">
-                                    <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="./Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
-                                        <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
-                                    </ul>
-                                </div>';
-                    }
-                    else {
-                        header("Location: ../../index.php");
-                    }
-                    ?>
-                    <div class="modal fade " id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+
+                    <button class="btn btn-dark border-warning-subtle" type="button" data-bs-toggle="modal" data-bs-target="#addModal">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="modal fade " id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog ">
-                            <div class="radius-modal modal-content background-modal">
-                                
+                            <div class="radius-modal modal-content background-modal bg-dark">
+                            <div class="modal-header text-light">
+                                <h5 class="modal-title" id="addModalLabel">Create an Account</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
                                 <div class="modal-body">
-                                    <!-- Pills navs -->
-                                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link active" id="tab-login" data-bs-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">Login</a>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <a class="nav-link" id="tab-register" data-bs-toggle="pill" href="#pills-register" role="tab" aria-controls="pills-register" aria-selected="false">Register</a>
-                                        </li>
-                                    </ul>
                                     <!-- Pills navs -->
 
                                     <!-- Pills content -->
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                                            <form action="index.php" method="POST">
-                                                <div class="text-center mb-3 text-light">
-                                                    <p>Sign in with :</p>
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-facebook-f"></i>
-                                                    </button>
+                                    <div class="tab-content ">
+                                        <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                                            <form action="./admin.php" method="POST">
 
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-google"></i>
-                                                    </button>
-
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-twitter"></i>
-                                                    </button>
-
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-github"></i>
-                                                    </button>
-                                                </div>
-
-                                                <p class="text-light text-center ">or :</p>
-
-                                                <!-- Email input -->
-                                                <div class="form-outline mb-4">
-                                                    <input type="text" id="loginName" class="form-control" name="Username" />
-                                                    <label class="form-label text-light" for="loginName">Username</label>
-                                                </div>
-
-                                                <!-- Password input -->
+                                                <!-- Id input -->
                                                 <div class="form-outline mb-4 ">
-                                                    <input type="password" id="loginPassword" class="form-control" name="Password"/>
-                                                    <label class="form-label text-light" for="loginPassword">Password</label>
+                                                    <input type="number" id="idUser" class="form-control" name="idUser"/>
+                                                    <label class="form-label text-light" for="createId">Id (Number Only)</label>
                                                 </div>
-
-                                                <!-- 2 column grid layout -->
-                                                <div class="row mb-4">
-                                                    <div class="col-md-6 d-flex justify-content-center">
-                                                    <!-- Checkbox -->
-                                                    <div class="form-check mb-3 mb-md-0">
-                                                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-                                                        <label class="form-check-label text-light" for="loginCheck"> Remember me </label>
-                                                    </div>
-                                                    </div>
-
-                                                    <div class="col-md-6 d-flex justify-content-center">
-                                                    <!-- Simple link -->
-                                                    <a href="#!">Forgot password?</a>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Submit button -->
-                                                <div class="d-flex justify-content-center">
-                                                    <button type="submit" name="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-                                                </div>
-                                                <!-- Register buttons -->
-                                                <div class="text-center">
-                                                    <p class="text-light">Not a member? <a href="#!">Register</a></p>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                                            <form action="index.php" method="POST">
-                                                <div class="text-center mb-3 text-light">
-                                                    <p>Sign in with :</p>
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-facebook-f"></i>
-                                                    </button>
-
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-google"></i>
-                                                    </button>
-
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-twitter"></i>
-                                                    </button>
-
-                                                    <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                                                    <i class="fab fa-github"></i>
-                                                    </button>
-                                                </div>
-
-                                                <p class="text-center text-light">or :</p>
-
+                                                
                                                 <!-- Email input -->
-                                                <div class="form-outline mb-4">
-                                                    <input type="email" id="registerEmail" class="form-control" name="Email"/>
-                                                    <label class="form-label text-light" for="registerEmail">Email</label>
+                                                <div class="form-outline mb-4 ">
+                                                    <input type="email" id="createEmail" class="form-control" name="Email"/>
+                                                    <label class="form-label text-light" for="createEmail">Email</label>
                                                 </div>
 
                                                 <!-- Username input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="text" id="registerUsername" class="form-control" name="UserRegister"/>
-                                                    <label class="form-label text-light" for="registerUsername">Username</label>
+                                                    <input type="text" id="createUsername" class="form-control" name="UserRegister"/>
+                                                    <label class="form-label text-light" for="createUsername">Username</label>
                                                 </div>
 
                                                 <!-- Password input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="password" id="registerPassword" class="form-control" name="PwdRegister"/>
-                                                    <label class="form-label text-light" for="registerPassword">Password</label>
+                                                    <input type="password" id="createPassword" class="form-control" name="PwdRegister"/>
+                                                    <label class="form-label text-light" for="createPassword">Password</label>
                                                 </div>
 
                                                 <!-- Repeat Password input -->
                                                 <div class="form-outline mb-4">
-                                                    <input type="password" id="registerRepeatPassword" class="form-control" name="PwdCheckRegister"/>
-                                                    <label class="form-label text-light" for="registerRepeatPassword">Repeat password</label>
+                                                    <input type="password" id="createRepeatPassword" class="form-control" name="PwdCheckRegister"/>
+                                                    <label class="form-label text-light" for="createRepeatPassword">Repeat password</label>
                                                 </div>
-
-                                                <!-- Checkbox -->
-                                                <div class="form-check d-flex justify-content-center mb-4">
-                                                    <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-                                                    aria-describedby="registerCheckHelpText" />
-                                                    <label class="form-check-label text-light" for="registerCheck">
-                                                    I have read and agree to the terms
-                                                    </label>
+                                                
+                                                <!-- Type input -->
+                                                <div class="form-outline mb-4">
+                                                    <input type="text" id="createTypeUser" class="form-control" name="TypeUser"/>
+                                                    <label class="form-label text-light" for="createTypeUser">Type (User or Admin)</label>
                                                 </div>
 
                                                 <!-- Submit button -->
                                                 <div class="d-flex justify-content-center">
-                                                    <button type="submit" name="submit-register"  class="btn btn-primary btn-block mb-3">Sign up</button>
+                                                    <button type="submit" name="submit-create"  class="btn btn-primary btn-block mb-3">Create the account</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -215,13 +118,61 @@ if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
                         </div>
                     </div>
 
+                    <a class="btn btn-dark border-warning-subtle px-3" href="https://github.com/FredVinet/Player-One" target="blank" role="button">
+                        <i class="fab fa-github"></i>
+                    </a>
+
+                    <div class="dropdown">
+                        <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><?php echo $_SESSION['Username'] ?></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="./Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                            <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+    <!-- Modal pour les messages d'erreur -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Erreur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="errorMessages">
+                <!-- Les messages d'erreur seront injectés ici -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal">Fermer</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            <?php if (!empty($_SESSION['errors'])): ?>
+                // Convertit les messages d'erreur PHP en HTML
+                var errorsHtml = "<?php echo implode('<br>', $_SESSION['errors']); ?>";
+                document.getElementById('errorMessages').innerHTML = errorsHtml;
+
+                // Affiche la modal d'erreur
+                var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                errorModal.show();
+
+                // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
+                <?php unset($_SESSION['errors']); ?>
+            <?php endif; ?>
+        });
+    </script>
+
+    
 
 </header>
+
 <main class="mt-5">
+        
     <?php 
         if (isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true) {
             require_once "./UserShower.php";

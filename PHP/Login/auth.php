@@ -41,7 +41,7 @@ if(isset($_POST["submit"])){
         header("Location: index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
     }else{
-        require_once "./PHP/Login/DB_Conn.php";
+        require_once "./PHP/DBConnect/DB_Conn.php";
 
         $sql = "SELECT * FROM t_joueur
                 WHERE J_Username = '$Userlogin' AND J_Pwd='$passwordlogin'";

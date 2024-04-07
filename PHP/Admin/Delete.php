@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     header("Location: ../../index.php");
     exit();
-}elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_GET['idDelete'])){
+} elseif (isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_GET['idDelete'])) {
     // Connexion à la base de données
     require_once "../DBConnect/DB_Conn.php";
 
@@ -17,11 +17,18 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     }
 
     // Requête de suppression
-    $query = $conn->prepare("DELETE FROM T_joueur WHERE J_Id = ?");
-    $query->execute([$id]);
+    $sqlDelete = "DELETE FROM T_joueur WHERE J_Id = ?";
+    $stmt = $conn->prepare($sqlDelete);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    // Fermeture de la requête
+    $stmt->close();
 
     // Redirection vers Admin.php après la suppression
     header("Location: ./Admin.php");
     exit();
 }
+
+// Reste de votre code pour afficher les utilisateurs et leurs actions
 ?>

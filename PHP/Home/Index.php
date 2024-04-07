@@ -1,6 +1,6 @@
 <?php
-require_once "./PHP/Login/auth.php";
-require_once "./PHP/Login/adduser.php";
+require_once "../Login/auth.php";
+require_once "../Login/adduser.php";
 ?>
 
 
@@ -13,7 +13,7 @@ require_once "./PHP/Login/adduser.php";
     <link rel="icon" type="Assets/iconeHub" href="./Assets/iconeHub.svg" />
     <title>Player One</title>
 
-    <link rel="stylesheet" href="./Css/style.css">
+    <link rel="stylesheet" href="../../Css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
@@ -56,17 +56,17 @@ require_once "./PHP/Login/adduser.php";
                             echo '<div class="dropdown">
                                         <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="./PHP/Admin/Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
-                                            <li><a class="dropdown-item" href="./PHP/MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
-                                            <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
+                                            <li><a class="dropdown-item" href="../Admin/Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                                            <li><a class="dropdown-item" href="../MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
+                                            <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                                         </ul>
                                     </div>';
                         } elseif(isset($_SESSION["User"]) && $_SESSION["User"] == true){
                             echo '<div class="dropdown ">
                                         <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="./PHP/MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
-                                            <li><a href="./PHP/Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
+                                            <li><a class="dropdown-item" href="../MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
+                                            <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                                         </ul>
                                     </div>';
                         }
@@ -80,7 +80,7 @@ require_once "./PHP/Login/adduser.php";
 
             </nav>
 
-            <?php require_once "./PHP/Admin/ErrorMessage.php"?> 
+            <?php require_once "../Admin/ErrorMessage.php"?> 
 
         </header>
 
@@ -93,7 +93,7 @@ require_once "./PHP/Login/adduser.php";
         </main>    
             
         <?php 
-                require_once "./PHP/Footer/footer.php";
+                require_once "../Footer/footer.php";
         ?>
 
     </body>

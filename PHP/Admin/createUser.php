@@ -2,7 +2,7 @@
 
 if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     //Si l'utilisateur n'est pas Admin retourne vers la page d'accueil
-    header("Location: ../../index.php");
+    header("Location: ../Home/index.php");
     exit();
 }elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_POST["submit-create"])){
 

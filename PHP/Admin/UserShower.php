@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     //Si l'utilisateur n'est pas Admin renvoie sur la page d'accueil
-    header("Location: ../../index.php");
+    header("Location: ../Home/index.php");
     exit();
     
 }elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){//Si l'utilisateur est Admin ouvre dans la base de données

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
-    header("Location: ../../index.php");
+    header("Location: ../Home/index.php");
 }
 require_once "./createUser.php";
 ?>
@@ -31,7 +31,7 @@ require_once "./createUser.php";
             <div class="container-fluid">
                 <div class="d-flex justify-content-between w-100">
                     <!-- Bouton à gauche -->
-                    <a href="../../index.php" class="btn btn-dark border-warning-subtle ms-3"> 
+                    <a href="../Home/index.php" class="btn btn-dark border-warning-subtle ms-3"> 
                         <i class="fa-solid fa-tent"></i>
                     </a>
                     <!-- <div class="ms-3 dropdown ">
@@ -39,7 +39,7 @@ require_once "./createUser.php";
                         <i class="fa-solid fa-tent"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="../../index.php"><i class="fa-solid fa-house me-2"></i>Home</a></li>
+                            <li><a class="dropdown-item" href="../Home/index.php"><i class="fa-solid fa-house me-2"></i>Home</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-comment me-2"></i>Contact Us</a></li>
                         </ul>

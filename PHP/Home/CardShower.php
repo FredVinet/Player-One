@@ -1,6 +1,6 @@
 <?php
 
-require_once "../DBConnect/DB_Conn.php";
+require_once "./PHP/DBConnect/DB_Conn.php";
 
 if ($conn) {
     $sqlQuery = "SELECT * FROM t_cassebrique";
@@ -30,7 +30,7 @@ if ($conn) {
                                 <div class="col-md-3 mb-5 d-flex align-items-stretch">
                                     <div class="card bg-dark border-warning-subtle">
                                         <!-- Affiche l'image de l'utilisateur -->
-                                        <img src="../.<?php echo $carte['CB_Image']; ?>" class="mt-4 ms-3 me-3 rounded-circle d-block mx-auto" alt="...">
+                                        <img src="<?php echo $carte['CB_Image']; ?>" class="mt-4 ms-3 me-3 rounded-circle d-block mx-auto" alt="...">
                                         <div class="card-body ">
                                             <!-- Affiche le Nom du casse-brique -->
                                             <h5 class="card-title text-warning text-center"><?php echo $carte['CB_Nom']; ?></h5>

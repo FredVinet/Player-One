@@ -50,7 +50,6 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#">Close</button>
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modifyModal">Return</button>
         </div>
         </div>
     </div>

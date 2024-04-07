@@ -1,5 +1,5 @@
 <!-- Modal de modification -->
-<div class="modal fade" id="modifyModal<?php echo $resultats['J_Id']; ?>" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
+<div class="modal fade" id="modifyModal<?php echo $resultats['J_Id']; echo $resultats['J_Username']; echo $resultats['J_Pwd']; ?>" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="radius-modal modal-content background-modal bg-dark">
         <div class="modal-header text-light">
@@ -11,7 +11,7 @@
                 <div class="tab-content ">
                     <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                         <!-- Envoie l'Id dans l'url -->
-                        <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>" method="POST">
+                        <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>&userNameChange=<?php echo $resultats['J_Username'];?>&passwordChange=<?php echo $resultats['J_Pwd'];?>" method="POST">
 
                             <!-- Username input -->
                             <div class="form-outline mb-4">

@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     //Si l'utilisateur n'est pas Admin renvoie sur la page d'accueil
-    header("Location: ../Home/index.php");
+    header("Location: ../../index.php");
     exit();
     
 }elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){//Si l'utilisateur est Admin ouvre dans la base de données
@@ -49,7 +49,7 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
 
                                                     <!-- Renvoie l'id de l'utilisateur que l'admin veut modifier ou supprimer -->
                                                     <!-- Bouton de modification-->
-                                                    <a href="#" class="btn btn-secondary px-3 border-warning-subtle me-2" data-bs-toggle="modal" data-bs-target="#modifyModal<?php echo $resultats['J_Id']; ?>">Modify</a>
+                                                    <a href="#" class="btn btn-secondary px-3 border-warning-subtle me-2" data-bs-toggle="modal" data-bs-target="#modifyModal<?php echo $resultats['J_Id']; echo $resultats['J_Username']; echo $resultats['J_Pwd'];?>">Modify</a>
                                                     <!-- Bouton de suppression -->
                                                     <a href="#" class="btn btn-secondary px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal<?php echo $resultats['J_Id']; echo $resultats['J_Type']; ?>">Delete</a>
 

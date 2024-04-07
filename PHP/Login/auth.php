@@ -35,11 +35,11 @@ if(isset($_POST["submit"])){
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
-        header("Location: ../Home/index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        header("Location: ./Index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
     
     }else{ //S'il n'y a pas d'erreur ouvre la base de données
-        require_once "../DBConnect/DB_Conn.php";
+        require_once "./PHP/DBConnect/DB_Conn.php";
 
         //Selection de toutes la ligne ou J_Username et J_Pwd sont égal à $Userlogin et $passwordlogin
         $sql = "SELECT * FROM t_joueur WHERE J_Username = ? AND J_Pwd = ?";
@@ -79,7 +79,7 @@ if(isset($_POST["submit"])){
                     
                 }
                 //Redirection vers la page d'accueil
-                header("Location: ../Home/index.php");
+                header("Location: ./Index.php");
                 exit();
             } 
         } else {
@@ -92,7 +92,7 @@ if(isset($_POST["submit"])){
             foreach($errors as $error){
                 echo"<div class='alert alert-danger'>$error</div>";
             }
-            header("Location: ../Home/index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+            header("Location: ./Index.php"); // Redirection vers la même page pour afficher la modal d'erreur
             exit();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["Admin"]) && $_SESSION["Admin"] != true) {
-    header("Location: ../Home/index.php");
+    header("Location: ../../index.php");
 }
 require_once "./createUser.php";
 ?>
@@ -31,7 +31,7 @@ require_once "./createUser.php";
             <div class="container-fluid">
                 <div class="d-flex justify-content-between w-100">
                     <!-- Bouton à gauche -->
-                    <a href="../Home/index.php" class="btn btn-dark border-warning-subtle ms-3"> 
+                    <a href="../../index.php" class="btn btn-dark border-warning-subtle ms-3"> 
                         <i class="fa-solid fa-tent"></i>
                     </a>
                     <!-- <div class="ms-3 dropdown ">

@@ -5,39 +5,8 @@
         <a
             data-mdb-ripple-init
             class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
-            href="#!"
-            role="button"
-            data-mdb-ripple-color="dark"
-            ><i class="fab fa-facebook-f"></i
-        ></a>
-        <a
-            data-mdb-ripple-init
-            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
-            href="#!"
-            role="button"
-            data-mdb-ripple-color="dark"
-            ><i class="fab fa-twitter"></i
-        ></a>
-        <a
-            data-mdb-ripple-init
-            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
-            href="#!"
-            role="button"
-            data-mdb-ripple-color="dark"
-            ><i class="fab fa-google"></i
-        ></a>
-        <a
-            data-mdb-ripple-init
-            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
-            href="#!"
-            role="button"
-            data-mdb-ripple-color="dark"
-            ><i class="fab fa-instagram"></i
-        ></a>
-        <a
-            data-mdb-ripple-init
-            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
-            href="#!"
+            target="blank"
+            href="https://www.linkedin.com/in/frederic-vinet-856830293/"
             role="button"
             data-mdb-ripple-color="dark"
             ><i class="fab fa-linkedin"></i

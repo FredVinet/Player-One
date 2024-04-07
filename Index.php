@@ -71,7 +71,7 @@ require_once "./PHP/Login/adduser.php";
                                     </div>';
                         }
                         else {
-                                echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+                            echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
                         }
                         ?>
                         <?php require_once "./modalLogin.php"?>

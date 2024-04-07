@@ -1,5 +1,5 @@
 <!-- Modal de confirmation pour supprimer -->
-<div class="modal fade" id="deleteConfirmationModal<?php echo $resultats['J_Id']; ?>" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteConfirmationModal<?php echo $resultats['J_Id']; echo $resultats['J_Type']; ?>" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -11,7 +11,8 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <a id="deleteButton" href="./Delete.php?idDelete=<?php echo $resultats['J_Id'] ?>" class="btn btn-danger">Yes</a>
+            <!-- Envoie l'Id et le Type dans l'url -->
+            <a id="deleteButton" href="./Delete.php?idDelete=<?php echo $resultats['J_Id'];?>&typeDelete=<?php echo $resultats['J_Type'];?>" class="btn btn-danger">Yes</a>
         </div>
         </div>
     </div>

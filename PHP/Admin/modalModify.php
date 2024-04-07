@@ -8,12 +8,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>     
         </div>
             <div class="modal-body">
-                <!-- Pills navs -->
-                <!-- Pills content -->
                 <div class="tab-content ">
                     <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                        <!-- Envoie l'Id dans l'url -->
                         <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>" method="POST">
-
                             
                             <!-- Id input -->
                             <div class="form-outline mb-4 ">
@@ -55,6 +53,7 @@
                             <div class="d-flex justify-content-center">
                                 <button type="submit" name="submit-change"  class="btn btn-primary btn-block mb-3">Update Change</button>
                             </div>
+
                         </form>
                     </div>
                 </div>

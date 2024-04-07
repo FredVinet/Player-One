@@ -1,19 +1,14 @@
 <?php
-    //------------------------------------
-    //  _____      _ _    ____________ 
-    // |_   _|    (_) |   |  _  \ ___ \
-    //   | | _ __  _| |_  | | | | |_/ /
-    //   | || '_ \| | __| | | | | ___ \
-    //  _| || | | | | |_  | |/ /| |_/ /
-    //  \___/_| |_|_|\__| |___/ \____/ 
-    //------------------------------------
+    //Variables de connexion à la base de donnée
     $host = 'localhost';
     $user = 'root';
     $password = '';
     $dbname = 'bddcassebrique';
 
+    //Connexion à la base de données
     $conn = mysqli_connect($host, $user, $password, $dbname);
     
+    //Sécurité
     if(!$conn){
         die ("Connection Failed");
     }

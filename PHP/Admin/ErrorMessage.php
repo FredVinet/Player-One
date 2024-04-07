@@ -16,6 +16,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         <?php if (!empty($_SESSION['errorsAdd'])): ?>
@@ -54,6 +55,7 @@
         </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         <?php if (!empty($_SESSION['errorschange'])): ?>
@@ -67,6 +69,42 @@
 
             // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
             <?php unset($_SESSION['errorschange']); ?>
+        <?php endif; ?>
+    });
+</script>
+
+
+<!-- Modal pour les messages d'erreur de Suppression-->
+<div class="modal fade" id="errorModalDelete" tabindex="-1" aria-labelledby="errorModalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="errorModalDeleteLabel">Creation error</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="errorMessages">
+            <!-- Les messages d'erreur seront injectés ici -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">Close</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        <?php if (!empty($_SESSION['errorsDelete'])): ?>
+            // Convertit les messages d'erreur PHP en HTML
+            var errorsHtml = "<?php echo implode('<br>', $_SESSION['errorsDelete']); ?>";
+            document.getElementById('errorMessages').innerHTML = errorsHtml;
+
+            // Affiche la modal d'erreur
+            var errorModalDelete = new bootstrap.Modal(document.getElementById('errorModalDelete'));
+            errorModalDelete.show();
+
+            // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
+            <?php unset($_SESSION['errorsDelete']); ?>
         <?php endif; ?>
     });
 </script>

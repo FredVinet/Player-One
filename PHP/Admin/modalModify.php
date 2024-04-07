@@ -1,5 +1,5 @@
 <!-- Modal de modification -->
-<div class="modal fade" id="modifyModal<?php echo $resultats['J_Id']; ?>" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
+<div class="modal fade" id="modifyModal<?php echo $resultats['J_Id']; echo $resultats['J_Username']; echo $resultats['J_Pwd']; ?>" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="radius-modal modal-content background-modal bg-dark">
         <div class="modal-header text-light">
@@ -11,19 +11,7 @@
                 <div class="tab-content ">
                     <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
                         <!-- Envoie l'Id dans l'url -->
-                        <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>" method="POST">
-                            
-                            <!-- Id input -->
-                            <div class="form-outline mb-4 ">
-                                <input type="number" id="changeidUser" class="form-control" name="idUserChange" value="<?php echo $resultats['J_Id']; ?>"/>
-                                <label class="form-label text-light" for="changeidUser">New Id (Number Only)</label>
-                            </div>
-                            
-                            <!-- Email input -->
-                            <div class="form-outline mb-4 ">
-                                <input type="email" id="changeEmail" class="form-control" name="EmailChange" value="<?php echo $resultats['J_Email']; ?>"/>
-                                <label class="form-label text-light" for="changeEmail">New Email</label>
-                            </div>
+                        <form action="./Modify.php?idchange=<?php echo $resultats['J_Id']?>&userNameChange=<?php echo $resultats['J_Username'];?>&passwordChange=<?php echo $resultats['J_Pwd'];?>" method="POST">
 
                             <!-- Username input -->
                             <div class="form-outline mb-4">
@@ -45,7 +33,10 @@
                             
                             <!-- Type input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="changeTypeUser" class="form-control" name="TypeUserChange" value="<?php echo $resultats['J_Type']; ?>"/>
+                                <select class="form-select" id="changeTypeUser" name="TypeUserChange">
+                                    <option value="User" <?php echo $resultats['J_Type'] === 'User' ? 'selected' : ''; ?>>User</option>
+                                    <option value="Admin" <?php echo $resultats['J_Type'] === 'Admin' ? 'selected' : ''; ?>>Admin</option>
+                                </select>
                                 <label class="form-label text-light" for="changeTypeUser">New Type (User or Admin)</label>
                             </div>
 

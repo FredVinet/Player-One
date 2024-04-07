@@ -33,7 +33,7 @@ if(isset($_POST["submit-register"])){
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
-        header("Location: ./index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        header("Location: ../../index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
     }else{ //S'il n'y a pas d'erreur ouvre la base de données
         require_once "./PHP/DBConnect/DB_Conn.php";
@@ -98,7 +98,7 @@ if(isset($_POST["submit-register"])){
                 foreach($errors as $error){
                     echo"<div class='alert alert-danger'>$error</div>";
                 }
-                header("Location: ./index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+                header("Location: ../../index.php"); // Redirection vers la même page pour afficher la modal d'erreur
                 exit();
             }else { // Si pas d'erreur ajoute l'utilisateur dans la base de données
                 
@@ -120,7 +120,7 @@ if(isset($_POST["submit-register"])){
     if (count($errors) > 0) {
         $_SESSION['errors'] = $errors;
         
-        header("Location: ./index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        header("Location: ../../index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
     }
 }

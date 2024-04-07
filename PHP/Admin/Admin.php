@@ -39,7 +39,7 @@ require_once "./createUser.php";
                         <i class="fa-solid fa-tent"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="../../index.php"><i class="fa-solid fa-house me-2"></i>Home</a></li>
+                            <li><a class="dropdown-item" href="../Home/index.php"><i class="fa-solid fa-house me-2"></i>Home</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-comment me-2"></i>Contact Us</a></li>
                         </ul>

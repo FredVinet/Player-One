@@ -18,7 +18,7 @@
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                        <form action="index.php" method="POST">
+                        <form action="./index.php" method="POST">
                             <div class="text-center mb-3 text-light">
                                 <p>Sign in with :</p>
                                 <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
@@ -80,7 +80,7 @@
                     </div>
                     
                     <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                        <form action="index.php" method="POST">
+                        <form action="./index.php" method="POST">
                             <div class="text-center mb-3 text-light">
                                 <p>Sign in with :</p>
                                 <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">

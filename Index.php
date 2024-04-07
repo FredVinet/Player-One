@@ -31,7 +31,7 @@ require_once "./PHP/Login/adduser.php";
 
                 <div class="container-fluid">
                     <!-- Boutons à gauche -->
-                    <a href="./index.php" class="btn btn-dark border-warning-subtle ms-3"> 
+                    <a href="./Index.php" class="btn btn-dark border-warning-subtle ms-3"> 
                         <i class="fa-solid fa-tent"></i>
                     </a>
                     <!-- <div class="d-flex justify-content-between w-100">
@@ -74,7 +74,7 @@ require_once "./PHP/Login/adduser.php";
                             echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
                         }
                         ?>
-                        <?php require_once "./modalLogin.php"?>
+                        <?php require_once "./PHP/Home/modalLogin.php"?>
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@ require_once "./PHP/Login/adduser.php";
         <main class="m-0 border-0 bd-example border-0 mt-5">
 
             <?php 
-                require_once "./CardShower.php";
+                require_once "./PHP/Home/CardShower.php";
             ?> 
             
         </main>    

@@ -33,7 +33,11 @@ if (isset ($_SESSION["Loggedin"])) {
     <div class="container-fluid">
         <div class="d-flex justify-content-between w-100">
             <!-- Bouton GitHub à gauche -->
-            <div class="ms-3 dropdown ">
+
+            <a href="../../index.php" class="btn btn-dark border-warning-subtle ms-3"> 
+                <i class="fa-solid fa-tent"></i>
+            </a>
+            <!-- <div class="ms-3 dropdown ">
                 <button class="btn btn-dark dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-tent"></i>
                 </button>
@@ -42,7 +46,7 @@ if (isset ($_SESSION["Loggedin"])) {
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
                     <li><a class="dropdown-item" href="#"><i class="fa-solid fa-comment me-2"></i>Contact Us</a></li>
                 </ul>
-            </div>
+            </div> -->
 
             <!-- Bouton Login à droite -->
             <div class="d-flex align-items-center gap-3 me-5">
@@ -54,8 +58,8 @@ if (isset ($_SESSION["Loggedin"])) {
                     echo '<div class="dropdown">
                             <button class="btn btn-dark px-3 border-warning-subtle dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">'. $_SESSION['Username'] .'</button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="./PHP/Admin/Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
-                                <li><a class="dropdown-item" href="./PHP/MonCompte/Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
+                                <li><a class="dropdown-item" href="../Admin/Admin.php"><i class="fa-solid fa-user-secret me-2"></i>Admin</a></li>
+                                <li><a class="dropdown-item" href="./Account.php"><i class="fa-solid fa-user me-2"></i></i>Account</a></li>
                                 <li><a href="../Login/logout.php" class="dropdown-item" href="#"><i class="fa-solid fa-plane me-2"></i>Disconnect</a></li>
                             </ul>
                         </div>';

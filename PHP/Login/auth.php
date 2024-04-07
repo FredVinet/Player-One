@@ -2,88 +2,94 @@
 session_start();
 if(isset($_POST["submit"])){
 
-
+    //Mise en place des variables avec les Name dans le formulaire html
     $Userlogin = $_POST["Username"];
     $passwordlogin = $_POST["Password"];
     
-
+    //Mise en place de la variables errors en tableau
     $errors = array();
 
+    // Message d'erreur si le champ Username ou Password est vide 
     if(empty($Userlogin) OR empty($passwordlogin)){
         array_push($errors, "All fields are required");
     }
+    // Si Username et Password sont remplies rentre dans cette fonction
     if(isset($_POST['Username']) && isset($_POST['Password'])){
 
         function validate($data){
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
+            $data = trim($data);//Supprime les espaces en début et fin de chaîne de caractères 
+            $data = stripslashes($data);//Supprime les barres obliques inverses (backslashes) de la chaîne de caractères.
+            $data = htmlspecialchars($data);//Convertit les caractères spéciaux en entités HTML
+            return $data;//Retourne la variables $data
         }
     }
-    $Userlogin = validate($_POST['Username']);
+    //Validation des variables de Username et Password
+    $Userlogin = validate($_POST['Username']); 
     $passwordlogin = validate($_POST['Password']);
 
-    //------------------------------------
-    // ____________   _____ _               _    
-    // |  _  \ ___ \ /  __ \ |             | |   
-    // | | | | |_/ / | /  \/ |__   ___  ___| | __
-    // | | | | ___ \ | |   | '_ \ / _ \/ __| |/ /
-    // | |/ /| |_/ / | \__/\ | | |  __/ (__|   < 
-    // |___/ \____/   \____/_| |_|\___|\___|_|\_\
-    //------------------------------------
+
+    //Si il y a une erreurs renvoie le message d'erreur qui ouvre une modal
     if(count($errors) > 0){
         
         $_SESSION['errors'] = $errors;
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
-        header("Location: index.php"); // Redirection vers la même page pour afficher la modal d'erreur
+        header("Location: ./index.php"); // Redirection vers la même page pour afficher la modal d'erreur
         exit();
-    }else{
-        require_once "./PHP/Login/DB_Conn.php";
+    
+    }else{ //S'il n'y a pas d'erreur ouvre la base de données
+        require_once "./PHP/DBConnect/DB_Conn.php";
 
-        $sql = "SELECT * FROM t_joueur
-                WHERE J_Username = '$Userlogin' AND J_Pwd='$passwordlogin'";
+        //Selection de toutes la ligne ou J_Username et J_Pwd sont égal à $Userlogin et $passwordlogin
+        $sql = "SELECT * FROM t_joueur WHERE J_Username = ? AND J_Pwd = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $Userlogin, $passwordlogin);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        //S'il y a un résultat rentre dans le if 
+        if($result->num_rows === 1){
 
-        $result = mysqli_query($conn, $sql);
-        if(mysqli_num_rows($result) === 1){
+            //Extrait chaque ligne sous form de tableau où les clés sont les noms des colonnes de la table et les valeurs sont les valeurs correspondantes pour cette ligne.
+            $row = $result->fetch_assoc();
 
-            $row = mysqli_fetch_assoc($result); 
-            if($row['J_Username']===$Userlogin && $row['J_Pwd'] === $passwordlogin){
+            //Recheck si dans la ligne J_Username = $Userlogin et J_Pwd = $passwordlogin
+            if($row['J_Username'] === $Userlogin && $row['J_Pwd'] === $passwordlogin){
 
+                //Ajout des variables de sessions, l'utilisateur est connecter
                 $_SESSION['Image'] = $row['J_Image'];
                 $_SESSION['Username'] = $row['J_Username'];
                 $_SESSION['Id'] = $row['J_Id'];
                 $_SESSION['UserType'] = $row['J_Type'];
+                $_SESSION['Loggedin'] = $_SESSION['Username'];
 
-                // Vérifiez si le type d'utilisateur n'est ni 'Admin' ni 'User'
+                // Vérifie si le type d'utilisateur n'est ni 'Admin' ni 'User'
                 if($_SESSION['UserType'] != 'Admin' && $_SESSION['UserType'] != 'User') {
-                    // Supprimez la variable de session 'UserType' car elle ne correspond à aucun rôle attendu
+                    // Supprime la variable de session 'UserType' car elle correspond à aucun rôle attendu
                     unset($_SESSION['UserType']);
-                }else{
+                } else {
+
+                    //Check si UserType est un Admin ou un User
                     if($_SESSION['UserType'] == 'Admin'){
                         $_SESSION["Admin"] = true;
-                        $_SESSION['Loggedin'] = true;
-                    }else{
+                    } else {
                         $_SESSION["User"] = true;
-                        $_SESSION['Loggedin'] = true;
                     }
+                    
                 }
-                
+                //Redirection vers la page d'accueil
                 header("Location: ./index.php");
-
                 exit();
             } 
-        }else {
+        } else {
             array_push($errors, "UserName or Password doesn't exist.");
         }
-    }
-    if(count($errors)>0){
-        foreach($errors as $error){
-            echo"<div class='alert alert-danger'>$error</div>";
         }
+        //Si il y a une erreurs renvoie le message d'erreur qui ouvre une modal
+        if(count($errors)>0){
+            foreach($errors as $error){
+                echo"<div class='alert alert-danger'>$error</div>";
+            }
     }
 }
-
-?>

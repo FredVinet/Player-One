@@ -15,17 +15,17 @@ if ($conn) {
 }
 ?>
 
-<div id="carouselExampleIndicators" class="carousel slide">
+<div id="carouselExampleIndicators" class="carousel slide mb-5">
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <div class="carousel-inner mb-5">
+    <div class="carousel-inner">
              <?php foreach ($groupes as $index => $groupe): ?> <!-- Parcours le sous tableau $groupe qui répresente un groupe carte de casse-briques -->
                  <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>"><!-- Détermine quel élément du carousel est actif -->
                     <div class="container">
-                        <div class="row justify-content-center gap-3 mb-5">
+                        <div class="row justify-content-center gap-3">
                              <?php foreach ($groupe as $carte): ?> <!-- Parcours le talbeau associatif $carte qui représente les données d'une carte de casse-briques dans le groupe en cours d'itération.  -->
                                 <div class="col-md-3 mb-5 d-flex align-items-stretch">
                                     <div class="card bg-dark border-warning-subtle">

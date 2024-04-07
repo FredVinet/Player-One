@@ -24,10 +24,10 @@ require_once "./PHP/Login/adduser.php";
     <body>
 
 
-        <header class="p-3 m-0 border-0 bd-example m-0 border-0 mb-5">
+        <header class="p-3 m-0 border-0 bd-example m-0 border-0">
 
 
-            <nav class="navbar navbar-expand-lg navbar-light rounded mb-5">
+            <nav class="navbar navbar-expand-lg navbar-light rounded">
 
                 <div class="container-fluid">
                     <!-- Boutons à gauche -->
@@ -71,7 +71,7 @@ require_once "./PHP/Login/adduser.php";
                                     </div>';
                         }
                         else {
-                                echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+                            echo '<button hreftype="button" class="btn btn-dark px-3 border-warning-subtle" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
                         }
                         ?>
                         <?php require_once "./modalLogin.php"?>

@@ -20,8 +20,8 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     // Convertir le résultat en tableau
     $resultats = mysqli_fetch_all($resultat, MYSQLI_ASSOC);
 
-    // Diviser le tableau en sous-tableaux de 5 éléments
-    $groupes = array_chunk($resultats, 5);
+    // Diviser le tableau en sous-tableaux de 4 éléments
+    $groupes = array_chunk($resultats, 4);
 }
 ?>
 
@@ -32,18 +32,18 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
             <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-12">
-                            <div class="row row-cols-5 g-4">
+                        <div class="col-11">
+                            <div class="row row-cols-4 g-4">
                                 <?php foreach ($groupe as $resultats): ?>
-                                    <div class="col mb-4">
+                                    <div class="col-md-3 mb-3">
                                         <div class="card bg-dark border-warning-subtle">
                                             <!-- Affiche l'image de l'utilisateur -->
-                                            <img src="../.<?php echo $resultats['J_Image'] ?>" class="mt-2 rounded-circle" alt="...">
+                                            <img src="../.<?php echo $resultats['J_Image'] ?>" class="mt-2 rounded-circle w-75 mx-auto" alt="...">
                                             <div class="card-body ">
                                                 <!-- Affiche son username -->
-                                                <h5 class="card-title text-warning  text-center"><?php echo $resultats['J_Username'] ?></h5>
+                                                <h5 class="card-title text-warning  text-center text-sm"><?php echo $resultats['J_Username'] ?></h5>
                                                 <!-- Affiche le type d'utilisateur -->
-                                                <p class="card-text text-light  text-center"><?php echo $resultats['J_Type'] ?></p>
+                                                <p class="card-text text-light  text-center text-xs"><?php echo $resultats['J_Type'] ?></p>
 
                                                 <div class="d-flex justify-content-center">
 
@@ -85,8 +85,4 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
 
 
 <!-- Message d'erreur -->
-<?php require_once "./ErrorMessage.php"; ?> 
-
-
-
-    
+<?php require_once "./ErrorMessage.php"; ?>

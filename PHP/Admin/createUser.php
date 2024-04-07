@@ -1,5 +1,10 @@
-<?php                   
-if(isset($_POST["submit-create"])){
+<?php 
+
+if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
+    header("Location: ../../index.php");
+    exit();
+}elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_POST["submit-create"])){
+
     $idCreate = $_POST["idUser"];
     $emailCreate = $_POST["Email"];
     $userCreate = $_POST["UserRegister"];
@@ -29,7 +34,7 @@ if(isset($_POST["submit-create"])){
     }
     if(count($errors) > 0){
         
-        $_SESSION['errors'] = $errors;
+        $_SESSION['errorsAdd'] = $errors;
         foreach($errors as $error){
             echo"<div class='alert alert-danger'>$error</div>";
         }
@@ -121,7 +126,7 @@ if(isset($_POST["submit-create"])){
     }
     // Afficher les erreurs ou rediriger l'utilisateur
     if (count($errors) > 0) {
-        $_SESSION['errors'] = $errors;
+        $_SESSION['errorsAdd'] = $errors;
         // Assurez-vous d'avoir la logique côté client pour traiter ces erreurs
         header("Location: ./Admin.php"); // Ou une autre logique de gestion des erreurs
         exit();

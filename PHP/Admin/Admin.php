@@ -134,39 +134,40 @@ require_once "./createUser.php";
             </div>
         </div>
     </nav>
-    <!-- Modal pour les messages d'erreur -->
-    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
+<!-- Modal pour les messages d'erreur d'ajout-->
+<div class="modal fade" id="errorModalAdd" tabindex="-1" aria-labelledby="errorModalAddLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Erreur</h5>
+                <h5 class="modal-title" id="errorModalAddLabel">Error in adding</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="errorMessages">
+            <div class="modal-body" id="errorMessagesAdd">
                 <!-- Les messages d'erreur seront injectés ici -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal">Fermer</button>
-            </div>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addModal">Return</button>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            <?php if (!empty($_SESSION['errors'])): ?>
-                // Convertit les messages d'erreur PHP en HTML
-                var errorsHtml = "<?php echo implode('<br>', $_SESSION['errors']); ?>";
-                document.getElementById('errorMessages').innerHTML = errorsHtml;
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        <?php if (!empty($_SESSION['errorsAdd'])): ?>
+            // Convertit les messages d'erreur PHP en HTML
+            var errorsHtml = "<?php echo implode('<br>', $_SESSION['errorsAdd']); ?>";
+            document.getElementById('errorMessagesAdd').innerHTML = errorsHtml;
 
-                // Affiche la modal d'erreur
-                var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
-                errorModal.show();
+            // Affiche la modal d'erreur
+            var errorModaladd = new bootstrap.Modal(document.getElementById('errorModalAdd'));
+            errorModaladd.show();
 
-                // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
-                <?php unset($_SESSION['errors']); ?>
-            <?php endif; ?>
-        });
-    </script>
+            // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
+            <?php unset($_SESSION['errorsAdd']); ?>
+        <?php endif; ?>
+    });
+</script>
 
     
 

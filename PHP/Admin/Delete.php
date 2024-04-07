@@ -4,12 +4,12 @@ session_start();
 if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     header("Location: ../../index.php");
     exit();
-}elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true){
+}elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_GET['idDelete'])){
     // Connexion à la base de données
     require_once "../DBConnect/DB_Conn.php";
 
     // Récupération de l'ID à partir de l'URL
-    $id = $_GET['id'];
+    $id = $_GET['idDelete'];
 
     // Vérification que l'ID est bien un nombre (simple mesure de sécurité)
     if (!is_numeric($id)) {

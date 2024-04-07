@@ -51,7 +51,7 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <a id="deleteButton" href="./Delete.php?id=<?php echo $resultats['J_Id']?>" class="btn btn-danger">Yes</a>
+        <a id="deleteButton" href="./Delete.php?idDelete=<?php echo $resultats['J_Id']?>" class="btn btn-danger">Yes</a>
       </div>
     </div>
   </div>
@@ -75,43 +75,43 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
 
                             <!-- Id input -->
                             <div class="form-outline mb-4 ">
-                                <input type="number" id="idUser" class="form-control" name="idUserChange"/>
-                                <label class="form-label text-light" for="createId">Id (Number Only)</label>
+                                <input type="number" id="changeidUser" class="form-control" name="idUserChange"/>
+                                <label class="form-label text-light" for="changeidUser">Id (Number Only)</label>
                             </div>
                             
                             <!-- Email input -->
                             <div class="form-outline mb-4 ">
-                                <input type="email" id="createEmail" class="form-control" name="EmailChange"/>
-                                <label class="form-label text-light" for="createEmail">Email</label>
+                                <input type="email" id="changeEmail" class="form-control" name="EmailChange"/>
+                                <label class="form-label text-light" for="changeEmail">Email</label>
                             </div>
 
                             <!-- Username input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="createUsername" class="form-control" name="UserRegisterChange"/>
-                                <label class="form-label text-light" for="createUsername">Username</label>
+                                <input type="text" id="changeUsername" class="form-control" name="UserRegisterChange"/>
+                                <label class="form-label text-light" for="changeUsername">Username</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="createPassword" class="form-control" name="PwdRegisterChange"/>
-                                <label class="form-label text-light" for="createPassword">Password</label>
+                                <input type="password" id="changePassword" class="form-control" name="PwdRegisterChange"/>
+                                <label class="form-label text-light" for="changePassword">Password</label>
                             </div>
 
                             <!-- Repeat Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="createRepeatPassword" class="form-control" name="PwdCheckRegisterChange"/>
-                                <label class="form-label text-light" for="createRepeatPassword">Repeat password</label>
+                                <input type="password" id="changeRepeatPassword" class="form-control" name="PwdCheckRegisterChange"/>
+                                <label class="form-label text-light" for="changeRepeatPassword">Repeat password</label>
                             </div>
                             
                             <!-- Type input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="createTypeUser" class="form-control" name="TypeUserChange"/>
-                                <label class="form-label text-light" for="createTypeUser">Type (User or Admin)</label>
+                                <input type="text" id="changeTypeUser" class="form-control" name="TypeUserChange"/>
+                                <label class="form-label text-light" for="changeTypeUser">Type (User or Admin)</label>
                             </div>
 
                             <!-- Submit button -->
                             <div class="d-flex justify-content-center">
-                                <button type="submit" name="submit-create"  class="btn btn-primary btn-block mb-3">Update Change</button>
+                                <button type="submit" name="submit-change"  class="btn btn-primary btn-block mb-3">Update Change</button>
                             </div>
                         </form>
                     </div>
@@ -120,7 +120,40 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
         </div>
     </div>
 </div>
+<!-- Modal pour les messages d'erreur de changements -->
+<div class="modal fade" id="errorModalchange" tabindex="-1" aria-labelledby="errorModalchangeLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="errorModalchangeLabel">Error in changes</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="errorMessageschange">
+            <!-- Les messages d'erreur sont affichés ici -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modifyModal">Return</button>
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        <?php if (!empty($_SESSION['errorschange'])): ?>
+            // Convertit les messages d'erreur PHP en HTML
+            var errorsHtml = "<?php echo implode('<br>', $_SESSION['errorschange']); ?>";
+            document.getElementById('errorMessageschange').innerHTML = errorsHtml;
 
+            // Affiche la modal d'erreur
+            var errorModalChange = new bootstrap.Modal(document.getElementById('errorModalchange'));
+            errorModalChange.show();
+
+            // Efface les messages d'erreur de la session pour éviter l'affichage répétitif
+            <?php unset($_SESSION['errorschange']); ?>
+        <?php endif; ?>
+    });
+</script>
 
 
 

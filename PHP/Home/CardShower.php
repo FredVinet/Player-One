@@ -26,7 +26,7 @@ if ($conn) {
                  <div class="carousel-item <?php echo $index == 0 ? 'active' : ''; ?>"><!-- Détermine quel élément du carousel est actif -->
                     <div class="container">
                         <div class="row justify-content-center gap-3">
-                             <?php foreach ($groupe as $carte): ?> <!-- Parcours le talbeau associatif $carte qui représente les données d'une carte de casse-briques dans le groupe en cours d'itération.  -->
+                             <?php foreach ($groupe as $carte): ?> <!-- Parcours le tableau associatif $carte qui représente les données d'une carte de casse-briques dans le groupe en cours d'itération.  -->
                                 <div class="col-md-3 mb-5 d-flex align-items-stretch">
                                     <div class="card bg-dark border-warning-subtle">
                                         <!-- Affiche l'image de l'utilisateur -->

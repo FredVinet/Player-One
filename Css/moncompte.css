@@ -3,3 +3,9 @@ body{
     background-position: top;
     background-attachment: fixed;
 }
+
+.background-modal{
+    background-image: url(../../Assets/CardLogin3.png);
+    background-position: center;
+    
+}

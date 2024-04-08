@@ -31,19 +31,21 @@ require_once "./PHP/Login/adduser.php";
 
                 <div class="container-fluid">
                     <!-- Boutons à gauche -->
-                    <a href="./Index.php" class="btn btn-dark border-warning-subtle ms-3"> 
+                    <!-- <a href="./Index.php" class="btn btn-dark border-warning-subtle ms-3"> 
                         <i class="fa-solid fa-tent"></i>
-                    </a>
-                    <!-- <div class="d-flex justify-content-between w-100">
+                    </a> -->
+                    <div class="d-flex justify-content-between w-100">
                         <div class="ms-3 dropdown ">
                         <button class="btn btn-dark dropdown-toggle border-warning-subtle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-tent"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-comment me-2"></i></i>Contact Us</a></li>
+                            <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-bolt me-2"></i>Scoreboard</a></li> -->
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ContactModal"><i class="fa-solid fa-comment me-2"></i></i>Contact Us</a></li>
                         </ul>
-                    </div> -->
+                    </div>
+                    <?php require_once "./PHP/Home/modalContact.php"?>
+
 
                     <!-- Boutons à droite -->
                     <div class="d-flex align-items-center gap-3 me-5">

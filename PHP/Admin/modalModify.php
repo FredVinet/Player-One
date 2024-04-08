@@ -1,12 +1,14 @@
 <!-- Modal de modification -->
 <div class="modal fade" id="modifyModal<?php echo $resultats['J_Id']; echo $resultats['J_Username']; echo $resultats['J_Pwd']; ?>" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
-        <div class="radius-modal modal-content background-modal bg-dark">
-        <div class="modal-header text-light">
-            <h5 class="modal-title" id="modifyModalLabel">Modify Pannel</h5>
-            
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>     
+        <div class="radius-modal modal-content" style="background-image: url(../../Assets/CardLogin3.png); background-position: center;">
+        <div class="modal-header text-light d-flex justify-content-between">
+            <h5 class="modal-title" id="modifyModalLabel">Modify Panel</h5>
+            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                <img style="width:15px; height:20px;" src="../../Assets/croixBlanche.png" alt="Cross">
+            </button>
         </div>
+
             <div class="modal-body">
                 <div class="tab-content ">
                     <div class="tab-pane fade show active mt-3" id="pills-register" role="tabpanel" aria-labelledby="tab-register">

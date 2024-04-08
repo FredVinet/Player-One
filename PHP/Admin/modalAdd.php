@@ -1,11 +1,13 @@
 <!-- Modal d'ajout -->
 <div class="modal fade " id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
-        <div class="radius-modal modal-content background-modal bg-dark">
-        <div class="modal-header text-light">
-            <h5 class="modal-title" id="addModalLabel">Create an Account</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+        <div class="radius-modal modal-content" style="background-image: url(../../Assets/CardLogin3.png); background-position: center;">
+            <div class="modal-header text-light d-flex justify-content-between">
+                <h5 class="modal-title" id="modifyModalLabel">Create an Account</h5>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <img style="width:15px; height:20px;" src="../../Assets/croixBlanche.png" alt="Cross">
+                </button>
+            </div>
             <div class="modal-body">
 
                 <!-- Pills content -->

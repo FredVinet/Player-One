@@ -13,21 +13,34 @@
                 <form action="./index.php" method="POST">
                     <div class="text-center mb-3 text-light">
                         <p>Connect with us through :</p>
-                        <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                        <i class="fab fa-facebook-f"></i>
-                        </button>
+                        <a
+                            data-mdb-ripple-init
+                            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
+                            target="blank"
+                            href="https://www.linkedin.com/in/frederic-vinet-856830293/"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            ><i class="fab fa-linkedin"></i
+                        ></a>
+                        <a
+                            data-mdb-ripple-init
+                            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
+                            target="blank"
+                            href="#"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            ><i class="fab fa-google"></i>
+                        </a>
 
-                        <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                        <i class="fab fa-google"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                        <i class="fab fa-twitter"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-link link-warning border-warning-subtle btn-floating mx-1 text-light">
-                        <i class="fab fa-github"></i>
-                        </button>
+                        <a
+                            data-mdb-ripple-init
+                            class="btn btn-link btn-floating link-warning border-warning-subtle btn-lg text-light m-1"
+                            target="blank"
+                            href="https://github.com/FredVinet"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            ><i class="fab fa-github"></i
+                        ></a>
                     </div>
 
                     <p class="text-center text-light">or fill out this form :</p>

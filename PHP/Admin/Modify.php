@@ -82,20 +82,6 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
                 array_push($errors, "Username already exists.");
 
             }
-
-            // Préparation de la requête pour vérifier si le Username existe déjà
-            $sqlCheckUser = "SELECT J_Pwd FROM t_joueur WHERE J_Pwd = ?";
-            $stmt = $conn->prepare($sqlCheckUser);
-            $stmt->bind_param("s", $password);
-            $stmt->execute();
-            $resultPwd = $stmt->get_result();
-
-            if($resultuser->num_rows > 0 && $userModify != $userName) {
-
-                // Si le Username existe déjà, message d'erreur
-                array_push($errors, "Username already exists.");
-
-            }
             
             //S'il y a une erreur renvoie l'erreur
             if(count($errors) > 0){

@@ -1,5 +1,6 @@
 body{
     background-image: url(../Assets/BackgroundHub.png);
+    background-attachment: fixed;
 }
 
 

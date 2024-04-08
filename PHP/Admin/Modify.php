@@ -6,33 +6,46 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     exit();
 }elseif(isset($_SESSION["Admin"]) && $_SESSION["Admin"] == true && isset($_GET['idchange']) && isset($_GET['idchange']) && isset($_GET['passwordChange'])){
     //Mise en place de la variables qui récupère l'id de l'utilisateur que l'admin veut changer par l'url
-    $userId  = $_GET['idchange'];
-    $userName  = $_GET['userNameChange'];
-    $password = $_GET['passwordChange'];
+    
 
     //Si le bouton envoie submit-change rentre dans ce if  
     if(isset($_POST['submit-change'])) {
+        
 
         //Mise en place des variables qui reprennent tout les champs rentrer dans le formulaire
         $userModify = $_POST["UserRegisterChange"];
         $typeModify = $_POST["TypeUserChange"];
+        $userId  = $_GET['idchange'];
+        $userName  = $_GET['userNameChange'];
+        $password = $_GET['passwordChange'];
+        $passwordModify = $_POST["PwdRegisterChange"];
         $passwordrepeatModify = $_POST["PwdCheckRegisterChange"];
-
         //Mise en place de la variables errors en tableau
         $errors = array(); 
+
+        // Message d'erreur si les champs sont vide 
+        if(empty($userModify) OR empty($typeModify)){
+            array_push($errors, "All fields are required" );
+        }
+        // Check si les 2 passwords sont vide et s'ils sont vide garde l'ancien mot de passe 
         if(empty($passwordModify) && empty($passwordrepeatModify)){
             $passwordModify = $password;
             $passwordrepeatModify = $password;
-        }else{
-            $passwordModify = $_POST["PwdRegisterChange"];
         }
         //Check si le password est de plus de 8 charactères/string
-        if(strlen($passwordModify)<8){
+        if(!empty($passwordModify)<8 && !empty($passwordrepeatModifystrlen) && ($passwordModify)<8 && strlen($passwordrepeatModify)<8){
             array_push($errors, "Password must be at least 8 characters long"); 
         }
         //Check si le Password et Password check sont bien les mêmes
         if($passwordModify != $passwordrepeatModify){
             array_push($errors, "Password does not match"); 
+        }
+        //Check si le Password et Password check sont bien les mêmes
+        if(empty($passwordModify) && !empty($passwordrepeatModify)){
+            array_push($errors, "Your password is empty"); 
+        }
+        if(!empty($passwordModify) && empty($passwordrepeatModify)){
+            array_push($errors, "You need to repeat the password"); 
         }
         //Check si les charactères sont bien 'User' ou 'Admin'
         if($typeModify != "User" && $typeModify != "Admin"){
@@ -62,6 +75,20 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
             $stmt->bind_param("s", $userModify);
             $stmt->execute();
             $resultuser = $stmt->get_result();
+
+            if($resultuser->num_rows > 0 && $userModify != $userName) {
+
+                // Si le Username existe déjà, message d'erreur
+                array_push($errors, "Username already exists.");
+
+            }
+
+            // Préparation de la requête pour vérifier si le Username existe déjà
+            $sqlCheckUser = "SELECT J_Pwd FROM t_joueur WHERE J_Pwd = ?";
+            $stmt = $conn->prepare($sqlCheckUser);
+            $stmt->bind_param("s", $password);
+            $stmt->execute();
+            $resultPwd = $stmt->get_result();
 
             if($resultuser->num_rows > 0 && $userModify != $userName) {
 
@@ -99,31 +126,6 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
                 }
                 //Ferme la connection à la base de données
                 $stmt->close();
-
-                // Récupère le type de l'utilisateur connecter
-                $currentUserId = $_SESSION['Id'];
-                $sqlCurrentUserType = "SELECT J_Type FROM t_joueur WHERE J_Id = ?";
-                $stmtCurrentUserType = $conn->prepare($sqlCurrentUserType);
-                $stmtCurrentUserType->bind_param("s", $currentUserId);
-                $stmtCurrentUserType->execute();
-                $resultCurrentUserType = $stmtCurrentUserType->get_result();
-                $currentUserType = $resultCurrentUserType->fetch_assoc()['J_Type'];
-
-                
-                
-                //Ferme la connection à la base de données
-                $stmtCurrentUserType->close();
-
-                // Vérifie si l'utilisateur actuellement connecté est toujours un admin
-                if ($currentUserType !== 'Admin') {
-                    // Redirection vers la page principale si l'utilisateur actuellement connecté n'est plus un administrateur
-                    header("Location: ../../index.php");
-                    exit();
-                } else {
-                    // Redirection vers la page d'administration si l'utilisateur actuellement connecté est toujours un administrateur
-                    header("Location: ./Admin.php");
-                    exit();
-                }
             }
         }
         //S'il y a une erreur renvoie l'erreur

@@ -11,14 +11,19 @@ if (!isset($_SESSION["Admin"]) || $_SESSION["Admin"] != true) {
     require_once "../DBConnect/DB_Conn.php";
 
     //Mise en place des variables
-    $joueur = $_SESSION["Id"];
+    $idUser = $_SESSION["Id"];
 
-    //Selection de toutes les colonnes et toutes les lignes de la table t_joueur
-    $sqlQuery = "SELECT * FROM t_joueur";
-    $resultat = mysqli_query($conn, $sqlQuery);
+    //Selection de toutes les colonnes et toutes les lignes de la table t_joueur sauf celle de l'utilisateur connecter
+    $sqlQuery = "SELECT * FROM t_joueur WHERE J_Id <> ?";
+    $stmt = $conn->prepare($sqlQuery);
+    $stmt->bind_param("s", $idUser); // Lie l'ID de l'utilisateur connecter à la requête
+    $stmt->execute();
+
+    // Récupère le résultat de la requête
+    $result = $stmt->get_result();
 
     // Convertir le résultat en tableau
-    $resultats = mysqli_fetch_all($resultat, MYSQLI_ASSOC);
+    $resultats = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     // Diviser le tableau en sous-tableaux de 4 éléments
     $groupes = array_chunk($resultats, 4);

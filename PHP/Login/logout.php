@@ -1,10 +1,10 @@
 <?php
-session_start(); // Start the session
+session_start(); // Commence la session
 
-// Unset all of the session variables
+// Vide toutes les variables de sessions
 $_SESSION = array();
 
-// Destroy the session cookie
+// Détruie les cookies de sessions
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -13,10 +13,10 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Destroy the session
+// Détruit la session
 session_destroy();
 
-// Redirect to a login page or any other page as needed
-header("Location: ../../wow-armory.php"); // Redirect to login.php
+// Ramène à la page d'accueil
+header("Location: ../../index.php");
 exit();
 ?>

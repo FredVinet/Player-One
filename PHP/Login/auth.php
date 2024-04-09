@@ -1,5 +1,11 @@
 <?php
 session_start();
+function validate($data){
+    $data = trim($data); //Supprime les espaces en début et fin de chaîne de caractères 
+    $data = stripslashes($data); //Supprime les barres obliques inverses (backslashes) de la chaîne de caractères.
+    $data = htmlspecialchars($data); //Convertit les caractères spéciaux en entités HTML
+    return $data; //Retourne la variables $data
+}
 if(isset($_POST["submit"])){
 
     //Mise en place des variables avec les Name dans le formulaire html
@@ -16,17 +22,11 @@ if(isset($_POST["submit"])){
     // Si Username et Password sont remplies rentre dans cette fonction
     if(isset($_POST['Username']) && isset($_POST['Password'])){
 
-        function validate($data){
-            $data = trim($data);//Supprime les espaces en début et fin de chaîne de caractères 
-            $data = stripslashes($data);//Supprime les barres obliques inverses (backslashes) de la chaîne de caractères.
-            $data = htmlspecialchars($data);//Convertit les caractères spéciaux en entités HTML
-            return $data;//Retourne la variables $data
-        }
-    }
-    //Validation des variables de Username et Password
-    $Userlogin = validate($_POST['Username']); 
-    $passwordlogin = validate($_POST['Password']);
+        //Validation des variables de Username et Password
+        $Userlogin = validate($_POST['Username']); 
+        $passwordlogin = validate($_POST['Password']);
 
+    }
 
     //Si il y a une erreurs renvoie le message d'erreur qui ouvre une modal
     if(count($errors) > 0){
